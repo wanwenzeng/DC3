@@ -74,4 +74,4 @@ python dcHiChIP.py -k 2 -E exampledata/E.txt -O exampledata/O.txt -G_symbol exam
 
 
 
-**For any questions about running the software or algorithm, please contact <zengww14@mails.tsinghua.edu.cn>.**
+**For any questions about running the software or algorithm, please contact <zengww14@mails.tsinghua.edu.cn> or <zduren@stanford.edu>.**
