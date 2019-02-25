@@ -1,4 +1,4 @@
-# dcHiChIP
+# DC3
 
 ## Introduction
 With the rapid development of single-cell genomics technology, researchers are now able to study heterogeneous mixtures of cell populations. 
@@ -10,7 +10,7 @@ However, to infer gene regulatory relations, it is necessary to link an accessib
 While combinatorial indexing has been used for three-dimensional (3D) contact measurement in single cells, it is currently still difficult to perform and not widely used. 
 On the other hand, in bulk sample it is easy to establish linkage of active enhancers to their target genes by H3K27ac HiChIP experiments. 
 Therefore, it is of considerable scientific significance to be able to deconvolve the bulk sample HiChIP signal (i.e., bulk sample loop counts) into subpopulation-specific HiChIP signals, based on the joint analysis of the following three types of data from separate samples from the same cell population: scRNA-seq, scATAC-seq, bulk H3K27ac HiChIP. 
-Here, we introduce dcHiChIP (for deconvolution of HiChIP) for the solution of this problem. 
+Here, we introduce DC3 for the solution of this problem. 
 Based on simulation experiments and biological experiments, it is shown that this method can decompose bulk HiChIP loop counts into subpopulation-specific loop counts. At the same time, the subpopulation-specific loop counts in turn lead to improved clustering results in the scRNA-seq and scATAC-seq data.
 
 ## Preprocessing
@@ -58,7 +58,7 @@ Note:-k, -O, -E, -G_symbol, -E_symbol, -hichip are the must-have parameters;
 ### Example
 
 ```
-python dcHiChIP.py -k 2 -E exampledata/E.txt -O exampledata/O.txt -G_symbol exampledata/gene.txt -E_symbol exampledata/enhancer.txt -hichip exampledata/hichip.txt  -lambda1 0.04 -lambda2 25
+python dc3.py -k 2 -E exampledata/E.txt -O exampledata/O.txt -G_symbol exampledata/gene.txt -E_symbol exampledata/enhancer.txt -hichip exampledata/hichip.txt  -lambda1 1000 -lambda2 0.0005
 
 ```
 
