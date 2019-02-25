@@ -100,6 +100,7 @@ S20=np.argmax(H20,0)
 print "Initializing non-negative matrix factorization for O..."
 O = np.log(O+1)
 err=np.zeros(rep)
+
 for i in range(0,rep):
         model = NMF(n_components=K, init='random', random_state=i,solver='cd',max_iter=50)
         W10 = model.fit_transform(O)
@@ -184,7 +185,6 @@ for x in range(len(set1)):
 		H1 = H10
 		H2 = H20
 		print lambda1,lambda2
-	
 		
 		print "Iterating dcHiChIP..."
 		maxiter   = 500
@@ -211,8 +211,7 @@ for x in range(len(set1)):
 		temp2 = A[A>0]
 		alpha = np.dot(np.transpose(temp1),temp2)/np.dot(np.transpose(temp1),temp1)
 		terms[it] = lambda1/2*pow(LA.norm(X-np.dot(W2,H2),ord = 'fro'),2)+1/2*pow(LA.norm(O-np.dot(W1,H1),ord = 'fro'),2)+lambda2/2*pow(LA.norm(A-alpha*D*np.dot(np.dot(W2,C),np.transpose(W1)),ord = 'fro'),2)
-		while it < maxiter-1 and err >1e-3:
-			#print err
+		while it < maxiter-1 and err >1e-4:
 			it  = it +1
 			T1 = lambda2*alpha*np.dot(np.dot(np.transpose(A),W2),C)
 			W1  = W1*((np.dot(O,np.transpose(H1))+T1)/(eps+np.dot(W1,np.dot(H1,np.transpose(H1)))+lambda2*alpha*alpha*np.dot(np.dot(np.transpose(D)*np.dot(np.dot(W1,np.transpose(C)),np.transpose(W2)),W2),C)))
@@ -239,12 +238,11 @@ for x in range(len(set1)):
                 	alpha = np.dot(np.transpose(temp1),temp2)/np.dot(np.transpose(temp1),temp1)
                 	terms[it] = lambda1/2*pow(LA.norm(X-np.dot(W2,H2),ord = 'fro'),2)+1/2*pow(LA.norm(O-np.dot(W1,H1),ord = 'fro'),2)+lambda2/2*pow(LA.norm(A-alpha*D*np.dot(np.dot(W2,C),np.transpose(W1)),ord = 'fro'),2)
 			err = abs(terms[it]-terms[it-1])/abs(terms[it-1])
-			S2=np.argmax(H2,0)
-	                S1=np.argmax(H1,0)
-        	        
+                
  
 		S2=np.argmax(H2,0)
 		S1=np.argmax(H1,0)
+			
 
 		for p in range(K):
 			temp = alpha*C[p,p]*np.dot(W2[:,p].reshape(-1,1),np.transpose(W1[:,p].reshape(-1,1)))
@@ -252,6 +250,7 @@ for x in range(len(set1)):
 		
 		hichip_final  = hichip_all[count,:,:]
                 hichip_revised= A[A>0]*hichip_final/(np.sum(hichip_final,axis = 0)+eps)
+
 	
 		p2 = np.zeros((X.shape[0],K))
 		for i in range(K):
@@ -264,7 +263,6 @@ for x in range(len(set1)):
 		temp = int(len(E_symbol)/20)
 		for i in range(K):
         		indexs = scores[:,i].argsort()[-temp:][::-1]
-			print
         		WP2[indexs,i] = 1
 			E_all[count,i,indexs] = 1
 			E_p_all[count,i,indexs] = p2[indexs,i]
@@ -312,15 +310,13 @@ fout2 = open("scRNA-result.txt","w")
 fout3 = open("cluster-specific-peaks-genes-pairs.txt","w")
 fout4 = open("cluster-specific-hichip.txt","w")
 
+print "scATAC-seq clustering assignment:"
 print S1_final
+print "scRNA-seq clustering assignment:"
 print S2_final
+print "cluster-specific HiChIP:"
 print hichip_revised
 
-print pearsonr(gm[A>0],hichip_revised[0,:])
-print pearsonr(k562[A>0],hichip_revised[1,:])
-
-print pearsonr(gm[A>0],hichip_revised[1,:])
-print pearsonr(k562[A>0],hichip_revised[0,:])
 for item in S1_final:
 	fout1.write(str(item)+"\t")
 fout1.write("\n")
