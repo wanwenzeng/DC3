@@ -58,7 +58,7 @@ Note:-k, -O, -E, -G_symbol, -E_symbol, -hichip are the must-have parameters;
 ### Example
 
 ```
-python dc3.py -k 2 -E exampledata/E.txt -O exampledata/O.txt -G_symbol exampledata/gene.txt -E_symbol exampledata/enhancer.txt -hichip exampledata/hichip.txt  -lambda1 1000 -lambda2 0.0005
+python dc3.py -k 2 -E exampledata/E.txt -O exampledata/O.txt -E_symbol exampledata/gene.txt -O_symbol exampledata/enhancer.txt -hichip exampledata/hichip.txt  -lambda1 1000 -lambda2 0.0005
 
 ```
 
