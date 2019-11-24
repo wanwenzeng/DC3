@@ -174,7 +174,7 @@ E_all = np.zeros((len(set1)*len(set2),K,E.shape[0]))
 P_p_all = np.zeros((len(set1)*len(set2),K,O.shape[0]))
 E_p_all = np.zeros((len(set1)*len(set2),K,E.shape[0]))
 
-print "Starting dcHiChIP..."
+print "Starting dc3..."
 count = 0
 for x in range(len(set1)):
 	for y in range(len(set2)):
